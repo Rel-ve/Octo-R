@@ -11,7 +11,7 @@ def game(comp,a): # Makes a function that compares the value provided by the com
         elif comp == 'r' and a == 'p':
             print("Player wins!")
         elif comp == 'p' and a == 'r':
-            print("Computer wins")
+            print("Computer wins!")
 
 num = random.randint(1,3) # Picks a random number
 
@@ -27,5 +27,5 @@ choice = input("Enter Scissors(s), Rock(r), Paper(p): ")
 if choice == 's' or choice == 'r' or choice == 'p': # Compares the values inputed by the user
    print("Choice of computer", comp)
    game(choice,comp)
-else:
+else: # presents an error if the user has inputed any other characters outside of the specified string
     print("Input valid statement")
