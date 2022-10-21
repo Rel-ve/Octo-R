@@ -12,7 +12,7 @@ class Quadratic:
             print("The quadratic has two similar roots")
             print(f"The discriminant of the given quadratic is {self.d}")
         elif self.d < 0:
-            print("The quadratic has no/imaginary roots")
+            print("The quadratic has no real/imaginary roots")
             self.d = complex(0, -self.d)
             print(f"The discriminant of the given quadratic is {self.d}")
         elif self.d > 0:
