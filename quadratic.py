@@ -54,7 +54,7 @@ class Quadratic():
             elif(n=='n'):
                 break
 
-        # Finds the Discriminant of the root
+    # Finds the Discriminant of the root
     def Discriminant(self):
         self.d = pow((self.b),2) - 4*self.a*self.c  
 
