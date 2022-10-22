@@ -1,7 +1,4 @@
-print("Enter all the values(if in fraction form, type f, otherwise type anything)")
-
-
-    
+print("Enter all the values(if in fraction form, type f, otherwise type anything)")  
 class Quadratic():
     var = "a"
     a = ''
