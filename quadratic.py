@@ -1,8 +1,40 @@
-class Quadratic:
-    def __init__(self,a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+print("Enter all the values(if in fraction form, type f, otherwise type anything)")
+
+
+    
+class Quadratic():
+    var = "a"
+    a = ''
+    b = ''
+    c = ''   
+    def __init__(self):
+        choice = input("")
+        if choice == 'f':
+            var = "d"
+            for i in range(0,3):
+                n = input("Which fractional value does each function have (if a number is integer, put Denominator as 1) ")
+                if n == 'a':
+                    print("Input both values")
+                    x = int(input("Numerator: "))
+                    y = int(input("Denominator: "))
+                    self.a = x/y
+                elif n == 'b':
+                    print("Input both values")
+                    x = int(input("Numerator: "))
+                    y = int(input("Denominator: "))
+                    self.b = x/y
+                elif n == 'c':
+                    print("Input both values")
+                    x = int(input("Numerator: "))
+                    y = int(input("Denominator: "))
+                    self.c = x/y
+                else:
+                    break
+        else:
+            self.a = int(input("Coefficient of x^2: "))
+            self.b = int(input("Coefficient of x: "))
+            self.c = int(input("Constant term: ")) 
+
         # Checks and calculates value for square roots accordingly
         for i in range(0,3):
             n = input("Is a value square root (y/n)? ")
@@ -21,11 +53,10 @@ class Quadratic:
                     print(self.c)
             elif(n=='n'):
                 break
-
-    # Finds the Discriminant of the root
+        # Finds the Discriminant of the root
     def Discriminant(self):
         self.d = pow((self.b),2) - 4*self.a*self.c  
-        print(self.d)
+        print(f"The discriminant is {self.d}")
 
         if self.d == 0: # Compares value of discriminant to check nature of the roots
             print("The quadratic has two similar roots")
@@ -39,10 +70,9 @@ class Quadratic:
             print(f"The discriminant of the given quadratic is {self.d}")
 
         return self.d 
-    
-    # Solves for the values of the quadratic formula
-    def Sol(self):
         
+        # Solves for the values of the quadratic formula
+    def Sol(self): 
         self.d = self.d**0.5
         
         self.r1 = (-self.b + self.d)/2*self.a
@@ -50,13 +80,7 @@ class Quadratic:
         
         self.r2 = (-self.b - self.d)/2*self.a
         print(f"Root 2 of the given quadratic is {self.r2}")
-
-print("Enter all the values (Don't include any symbols, mathematical operators, functions etc)")
-
-p = int(input("Coefficient of x^2: "))
-q = int(input("Coefficient of x: "))
-r = int(input("Constant term: "))
     
-Quad = Quadratic(p,q,r)
+Quad = Quadratic()
 Quad.Discriminant()
 Quad.Sol()
