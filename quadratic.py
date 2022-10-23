@@ -87,4 +87,4 @@ Quad = Quadratic()
 
 Quad.Discriminant() # Prints the discriminant of the quadratic formula evaluated in the above class
 
-Quad.Sol() # Prints the two roots of the formula
+Quad.Sol() # Prints the two roots of the quadratic
