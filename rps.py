@@ -28,4 +28,4 @@ if choice == 's' or choice == 'r' or choice == 'p': # Compares the values inpute
    print("Choice of computer", comp)
    game(choice,comp)
 else: # presents an error if the user has inputed any other characters outside of the specified string
-    print("Input valid statement")
+   raise TypeError("Input valid option")
