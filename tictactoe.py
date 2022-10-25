@@ -1,3 +1,7 @@
+import random
+print("Welcome To TicTacToe!")
+print("To make moves, you would need to enter a number from 1 to 9")
+print("if you enter a wrong argument, a move is randomly chosen and played")
 board = [ 
     [' _ ', ' _ ', ' _ '],
 
@@ -23,15 +27,21 @@ def Print_board(board): # Creates the Board for TicTacToe
 def playerInput(board, current_player): # Takes Input from the user
 
     global player
-    player = int(input("Enter the number from 1-9: "))
-    global row
-    row = (player - 1)//3
-    global col
-    col = (player - 1) %3
-    if board[row][col] == ' _ ':
-        board[row][col] = current_player
-    else:
-        print("That slot is occupied")
+    try:
+        player = int(input("Enter the number from 1-9: "))
+        if player > 9 or player < 1:
+            player = random.randint(1,9)
+    except:
+        player = random.randint(1,9)
+    finally:
+        global row
+        row = (player - 1)//3
+        global col
+        col = (player - 1) %3
+        if board[row][col] == ' _ ':
+            board[row][col] = current_player
+        else:
+            print("That slot is occupied")
     
 def WinLogic(board, row, col, current_player): # Decides who won the game
 
@@ -39,14 +49,17 @@ def WinLogic(board, row, col, current_player): # Decides who won the game
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
+
         if board[0][col] == board[1][col] == board[2][col]:
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
+
         if board[0][0] == board[1][1] == board[2][2] == (' X ' or ' O '):
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
+
         if board[0][2] == board[1][1] == board[2][0] == (' X ' or ' O '):
             Print_board(board)
             print(f"{current_player} wins! GG!")
@@ -71,6 +84,7 @@ while GameRun:
         current_player = ' X '
         print(f"Player{current_player}to move:")
         i += 1
+
     else:
         current_player = ' O '
         print(f"Player{current_player}to move:")
