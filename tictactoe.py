@@ -43,7 +43,11 @@ def WinLogic(board, row, col, current_player): # Decides who won the game
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
-        if board[0][0] == board[1][1] == board[2][2]:
+        if board[0][0] == board[1][1] == board[2][2] == (' X ' or ' O '):
+            Print_board(board)
+            print(f"{current_player} wins! GG!")
+            return True
+        if board[0][2] == board[1][1] == board[2][0] == (' X ' or ' O '):
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
