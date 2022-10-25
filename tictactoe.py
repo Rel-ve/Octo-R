@@ -2,6 +2,9 @@ import random
 print("Welcome To TicTacToe!")
 print("To make moves, you would need to enter a number from 1 to 9")
 print("if you enter a wrong argument, a move is randomly chosen and played")
+
+comp = input("Do you want to play against computer (Type y for yes, anything else to continue): ")
+
 board = [ 
     [' _ ', ' _ ', ' _ '],
 
@@ -14,6 +17,7 @@ GameRun = True
 var = False
 row = 0
 col = 0
+# lists = []
 
 def Print_board(board): # Creates the Board for TicTacToe1
     print("-------------------")
@@ -23,10 +27,26 @@ def Print_board(board): # Creates the Board for TicTacToe1
     print("-------------------")
     print(f"| {board[2][0]} | {board[2][1]} | {board[2][2]} |")
     print("-------------------")
+if comp == 'y':
+   def CompInt(board):
+     lists = []
+     lis = []
+     global Y_Axis
+     global X_Axis
+     for i in board:
+          for coords,slot in enumerate(i):
+               if slot == ' _ ':
+                   lis = coords
+                   lists.append(lis)
+     length = len(lists) - 1               
+     choose = random.randint(0,length)
+     Y_Axis = choose // 3
+     X_Axis = lists[choose]
+     board[Y_Axis][X_Axis] = ' O '
 
 def playerInput(board, current_player): # Takes Input from the user
-
     global player
+    global Place
     try:
         player = int(input("Enter the number from 1-9: "))
         if player > 9 or player < 1:
@@ -40,8 +60,12 @@ def playerInput(board, current_player): # Takes Input from the user
         col = (player - 1) %3
         if board[row][col] == ' _ ':
             board[row][col] = current_player
+            Place = False
+            return Place
         else:
-            print("That slot is occupied")
+            print("That slot is occupied, go again")
+            Place = True
+            return Place
     
 def WinLogic(board, row, col, current_player): # Decides who won the game
 
@@ -84,14 +108,25 @@ while GameRun:
         current_player = ' X '
         print(f"Player{current_player}to move:")
         i += 1
-
     else:
-        current_player = ' O '
-        print(f"Player{current_player}to move:")
-        i += 1
-        
-    playerInput(board, current_player)
-    a = WinLogic(board,row,col,current_player)
+        if comp == 'y':
+            print("It's computer's turn")
+            CompInt(board)
+            i += 1
+        else:
+            current_player = ' O '
+            print(f"Player{current_player}to move:")
+            i += 1
+       
+    if comp == 'y' and i%2 == 0:
+        pass
+    else:        
+        playerInput(board, current_player)
+        if Place:
+            while Place:
+                playerInput(board, current_player)
+
+    a = WinLogic(board,row,col,current_player)   
     if a is True:
         break
     elif i == 11:
