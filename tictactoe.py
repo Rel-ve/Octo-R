@@ -15,8 +15,8 @@ var = False
 row = 0
 col = 0
 
-def Print_board(board): # Creates the Board for TicTacToe
-
+def Print_board(board): # Creates the Board for TicTacToe1
+    print("-------------------")
     print(f"| {board[0][0]} | {board[0][1]} | {board[0][2]} |")
     print("-------------------")
     print(f"| {board[1][0]} | {board[1][1]} | {board[1][2]} |")
