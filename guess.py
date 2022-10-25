@@ -1,21 +1,25 @@
 import random 
 import os.path
 
+print("Welcomes to the number guessing game!")
 CompGuess = random.randint(1,10)
 i = False
 guesses = 0
 while i != True:
-    UserGuess = int(input("Enter your number: "))
-    if UserGuess == CompGuess:
-        guesses += 1
-        break
-    elif UserGuess > CompGuess:
-        print("Guess lower")
-        guesses += 1
-
-    elif UserGuess < CompGuess:
-        print("Guess higher")
-        guesses += 1
+    try:    
+        UserGuess = int(input("Enter a number: "))
+        if UserGuess == CompGuess:
+            guesses += 1
+            break
+        elif UserGuess > CompGuess:
+            print("Guess lower")
+            guesses += 1
+    
+        elif UserGuess < CompGuess:
+            print("Guess higher")
+            guesses += 1
+    except Exception:
+        print("Please input a valid statement")
 
 print(f"You guessed the number {CompGuess} in {guesses} tries!")
 
