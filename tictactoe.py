@@ -12,6 +12,7 @@ board = [
     
     [' _ ', ' _ ', ' _ ']
 ]
+
 current_player = ' X '
 GameRun = True
 var = False
@@ -19,7 +20,7 @@ row = 0
 col = 0
 # lists = []
 
-def Print_board(board): # Creates the Board for TicTacToe1
+def Print_board(board): # Creates the Board for TicTacToe
     print("-------------------")
     print(f"| {board[0][0]} | {board[0][1]} | {board[0][2]} |")
     print("-------------------")
@@ -27,24 +28,39 @@ def Print_board(board): # Creates the Board for TicTacToe1
     print("-------------------")
     print(f"| {board[2][0]} | {board[2][1]} | {board[2][2]} |")
     print("-------------------")
+
+
 if comp == 'y':
-   def CompInt(board):
-     lists = []
-     lis = []
-     global Y_Axis
-     global X_Axis
-     for i in board:
-          for coords,slot in enumerate(i):
-               if slot == ' _ ':
-                   lis = coords
-                   lists.append(lis)
-     length = len(lists) - 1               
-     choose = random.randint(0,length)
-     Y_Axis = choose // 3
-     X_Axis = lists[choose]
-     board[Y_Axis][X_Axis] = ' O '
+   def CompInt(board): # Scans and makes move for the computer
+        global row
+        global col
+        lists = []
+        lis = []
+        global Y_Axis
+        global X_Axis
+        for i in board:
+             for coords,slot in enumerate(i):
+                  if slot == ' _ ':
+                      lis = (coords, board.index(i))
+                      lists.append(lis)
+                  elif slot == ' X ' or ' O ':
+                       continue
+    #     print(lists)
+        length = len(lists) - 1
+        if length <= 0:
+            exit()
+        else:               
+            choose = random.randint(0,length)
+        Y_Axis = lists[choose][1] 
+        X_Axis = lists[choose][0]
+        row = Y_Axis 
+        col = X_Axis
+        board[Y_Axis][X_Axis] = ' O '
+
+        return Y_Axis, X_Axis
 
 def playerInput(board, current_player): # Takes Input from the user
+
     global player
     global Place
     try:
@@ -110,6 +126,7 @@ while GameRun:
         i += 1
     else:
         if comp == 'y':
+            current_player = ' O '
             print("It's computer's turn")
             CompInt(board)
             i += 1
@@ -126,7 +143,9 @@ while GameRun:
             while Place:
                 playerInput(board, current_player)
 
-    a = WinLogic(board,row,col,current_player)   
+    a = WinLogic(board,row,col,current_player)
+    if i == 4 and comp == 'y':
+        a = WinLogic(board,Y_Axis, X_Axis, current_player)   
     if a is True:
         break
     elif i == 11:
