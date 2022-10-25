@@ -33,5 +33,5 @@ else:
             
         print("You just beat the high score!")
   
-  else:
+    else:
         print(f"Try again, your highest score is {highscore}")
