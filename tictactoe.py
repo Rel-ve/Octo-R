@@ -1,4 +1,5 @@
 import random
+
 print("Welcome To TicTacToe!")
 print("To make moves, you would need to enter a number from 1 to 9")
 print("if you enter a wrong argument, a move is randomly chosen and played")
