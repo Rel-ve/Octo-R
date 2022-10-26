@@ -48,6 +48,7 @@ if comp == 'y':
     #     print(lists)
         length = len(lists) - 1
         if length <= 0:
+            print("It's a draw")
             exit()
         else:               
             choose = random.randint(0,length)
@@ -85,12 +86,12 @@ def playerInput(board, current_player): # Takes Input from the user
     
 def WinLogic(board, row, col, current_player): # Decides who won the game
 
-        if board[row][0] == board[row][1] == board[row][2]:
+        if board[row][0] == board[row][1] == board[row][2] == current_player:
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
 
-        if board[0][col] == board[1][col] == board[2][col]:
+        if board[0][col] == board[1][col] == board[2][col] == current_player:
             Print_board(board)
             print(f"{current_player} wins! GG!")
             return True
