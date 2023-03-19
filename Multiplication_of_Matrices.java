@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 class Size_And_Compatibility {
     public int[] size_of_matrices(int a) {
         Scanner scan = new Scanner(System.in);
@@ -27,10 +28,10 @@ class Size_And_Compatibility {
 
     public int sum(int arr[][], int arr_1[][], int i, int j) {
         int sum = 0;
-        for (int z = 0; arr.length > z; z++) {
+        for (int z = 0; arr.length > z+j; z++) {
 //            System.out.println(arr[j][z]); => row
 //            System.out.println(arr_1[z][j]); => column
-            sum = sum + (arr[j][z] * arr_1[z][j]);
+            sum = sum + (arr[i][z+j] * arr_1[z+j][i]);
         }
         return sum;
     }
