@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace TicTacToe{
     class Logic
@@ -58,13 +59,13 @@ namespace TicTacToe{
             x = Convert.ToInt32( Console.ReadLine() ) - 1; 
             Console.Write($"Input which column: ");
             y = Convert.ToInt32( Console.ReadLine() ) - 1;
+                try
+                {
                 if (IsOccupied(x, y))
                 {
                     Console.WriteLine("Please choose an appropiate option");
                     continue;
                 }
-                try
-                {
                     Board[x, y] = User;
                     break;
                 }
