@@ -28,7 +28,7 @@ namespace TicTacToe{
             }
             //  LogicBoard = BoardImplementation.Board.Clone() as string[,];
         }
-        private bool IsOccupied(int x, int y)
+        public static bool IsOccupied(int x, int y)
         {
             if (Board[x,y] == "X" || Board[x,y] == "O")
             {
@@ -125,19 +125,65 @@ namespace TicTacToe{
             }
             return (HasUserWon, User);
         }
+    public static bool PlayerMoveDetermination(int j)
+    {
+        return true;
+    }
+    private static int ArbitaryValue;
+    public static bool CheckIfDraw()
+    {
+        ArbitaryValue = 1;
+        for(int i = 0; i < Board.GetLength(0); i++)
+            {
+            for (int j = 0; j < Board.GetLength(1); j++)
+                {
+
+                    if (Board[i, j] == "_")
+                    {
+                        ArbitaryValue = 0;
+                        break;
+                    }
+                }
+            }
+            if(ArbitaryValue == 0)
+                {
+                    return false;
+                }
+            else
+            {
+                return true;
+            }
+    }
     }
     class ComputerUser
     {
+        public bool ComputerMove;
         public static bool IsComputerUser;
+        private static string[,] ComputerBoard;
         public ComputerUser()
         {
             IsComputerUser = Logic.IsUserTypeComputer;
+            ComputerBoard = Logic.Board.Clone() as string[,];
         }
         public void ComputerTurn(int UserVal)
         {
             if(UserVal == 0)
             {
+                ComputerMove = false;
+            }
+            else
+            {
+                ComputerMove = true;
+            }
+        }
+        public static void Minimax()
+        {
+            for(int x = 0; x < ComputerBoard.GetLength(0); x++)
+            {
+                for(int y = 0; y < ComputerBoard.GetLength(1); y++)
+                {
 
+                }
             }
         }
     }
@@ -189,7 +235,8 @@ namespace TicTacToe{
                     try
                     {
                     int UserType = Convert.ToInt32(Console.ReadLine());
-
+                    obj3.ComputerTurn(UserType);
+                    Logic.PlayerMoveDetermination(UserType);
                     }
                     catch
                     {
@@ -197,16 +244,18 @@ namespace TicTacToe{
                     }
                 }
                 else if(Logic.IsUserTypeComputer){
-
                 }
                 else{
                 obj.UserInput(i);
                 obj2.PrintBoard();
                 }
-
                 if (Logic.CheckIfUserWin().UserStatus)
                 {
                     Console.WriteLine($"{Logic.CheckIfUserWin().User} has won");
+                    break;
+                }else if (Logic.CheckIfDraw())
+                {
+                    Console.WriteLine("It's a Draw");
                     break;
                 }
             }
