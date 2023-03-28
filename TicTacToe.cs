@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 
 namespace TicTacToe{
     class Logic
@@ -125,10 +124,6 @@ namespace TicTacToe{
             }
             return (HasUserWon, User);
         }
-    public static bool PlayerMoveDetermination(int j)
-    {
-        return true;
-    }
     private static int ArbitaryValue;
     public static bool CheckIfDraw()
     {
@@ -157,24 +152,64 @@ namespace TicTacToe{
     }
     class ComputerUser
     {
-        public bool ComputerMove;
-        public static bool IsComputerUser;
+        public static bool IsComputerUser, FirstComputerMove, ComputerMove;
+        public static int UserValue;
         private static string[,] ComputerBoard;
-        public ComputerUser()
+        public ComputerUser(int UserVal)
         {
             IsComputerUser = Logic.IsUserTypeComputer;
             ComputerBoard = Logic.Board.Clone() as string[,];
+            int UserValue = UserVal; 
         }
-        public void ComputerTurn(int UserVal)
+        public static bool ComputerTurn()
         {
-            if(UserVal == 0)
+            if (UserValue == 0)
             {
-                ComputerMove = false;
+                FirstComputerMove = false;
+                return false;
             }
             else
             {
-                ComputerMove = true;
+                FirstComputerMove = true;
+                return true;
             }
+        }
+    public static bool PlayerMoveDetermination()
+    {
+            bool i = ComputerTurn();
+            int k = 0;
+            if(i) {
+               if(k%2==0)
+                {
+                    // ComputerMove = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                    // ComputerMove= false;
+                }
+            }
+            else { 
+                 if(k%2==0)
+                {
+                    // ComputerMove= false;
+                    return false;
+                }
+                else
+                {
+                    // ComputerMove = true;
+                    return true;
+                }
+            }
+    }
+        public static void Minimizing(int x, int y)
+        {
+             int Score;
+        } 
+        public static void Maximizing(int x, int y)
+        {
+             int Score;
         }
         public static void Minimax()
         {
@@ -182,7 +217,13 @@ namespace TicTacToe{
             {
                 for(int y = 0; y < ComputerBoard.GetLength(1); y++)
                 {
-
+                    if (PlayerMoveDetermination())
+                    {
+                        Maximizing(x, y);
+                    }
+                    else{
+                        Minimizing(x, y);
+                    }
                 }
             }
         }
@@ -222,28 +263,38 @@ namespace TicTacToe{
             }
             Logic obj = new Logic(board, InputOfUser);
             BoardImplementation obj2 = new BoardImplementation();
-            ComputerUser obj3 = new ComputerUser();
             obj2.PrintBoard();
             Console.WriteLine("To play the game, you have to state which row and which column should your player should go to");
-            
+            int UserType = 2;
+            while(true)
+            {
+            if (Logic.IsUserTypeComputer)
+            {
+                Console.WriteLine("What user do you want to play?");
+                Console.WriteLine("0 for X, 1 for O");
+                try
+                {
+                    UserType = Convert.ToInt32(Console.ReadLine());
+                    ComputerUser obj3 = new ComputerUser(UserType);
+                        break;
+                }
+                catch(Exception e) {
+                    Console.WriteLine(e.Message);
+                }  
+            }
+            }
             for(int i = 1; i <= 9; i++)
             {
-                if (Logic.IsUserTypeComputer && i==1)
-                {
-                    Console.WriteLine("What user do you want to play?");
-                    Console.WriteLine("0 for X, 1 for O");
-                    try
+                if(Logic.IsUserTypeComputer){
+                    if (!ComputerUser.PlayerMoveDetermination())
                     {
-                    int UserType = Convert.ToInt32(Console.ReadLine());
-                    obj3.ComputerTurn(UserType);
-                    Logic.PlayerMoveDetermination(UserType);
+                        obj.UserInput(i);
+                        obj2.PrintBoard();
                     }
-                    catch
+                    else
                     {
-                        i--;
+                        ComputerUser.Minimax();
                     }
-                }
-                else if(Logic.IsUserTypeComputer){
                 }
                 else{
                 obj.UserInput(i);
