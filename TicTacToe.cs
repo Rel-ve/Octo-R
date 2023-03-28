@@ -159,7 +159,7 @@ namespace TicTacToe{
         {
             IsComputerUser = Logic.IsUserTypeComputer;
             ComputerBoard = Logic.Board.Clone() as string[,];
-            int UserValue = UserVal; 
+            UserValue = UserVal; 
         }
         public static bool ComputerTurn()
         {
@@ -177,28 +177,33 @@ namespace TicTacToe{
     public static bool PlayerMoveDetermination()
     {
             bool i = ComputerTurn();
-            int k = 0;
+            int k = 2;
             if(i) {
                if(k%2==0)
                 {
                     // ComputerMove = true;
+                    k++;
                     return true;
                 }
                 else
                 {
+                    k++;
                     return false;
                     // ComputerMove= false;
                 }
             }
             else { 
+                Console.WriteLine("what");
                  if(k%2==0)
                 {
                     // ComputerMove= false;
+                    k++;
                     return false;
                 }
                 else
                 {
                     // ComputerMove = true;
+                    k++;
                     return true;
                 }
             }
