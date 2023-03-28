@@ -205,7 +205,7 @@ namespace TicTacToe{
     }
         public static void Minimizing(int x, int y)
         {
-             int Score;
+             int Score, BestScore;
         } 
         public static void Maximizing(int x, int y)
         {
@@ -282,6 +282,10 @@ namespace TicTacToe{
                     Console.WriteLine(e.Message);
                 }  
             }
+                else
+                {
+                    break;
+                }
             }
             for(int i = 1; i <= 9; i++)
             {
