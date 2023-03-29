@@ -27,7 +27,7 @@ namespace TicTacToe{
             }
             //  LogicBoard = BoardImplementation.Board.Clone() as string[,];
         }
-        public static bool IsOccupied(int x, int y)
+        public static bool IsOccupied(int x, int y, string[,] Board)
         {
             if (Board[x,y] == "X" || Board[x,y] == "O")
             {
@@ -60,7 +60,7 @@ namespace TicTacToe{
             y = Convert.ToInt32( Console.ReadLine() ) - 1;
                 try
                 {
-                if (IsOccupied(x, y))
+                if (IsOccupied(x, y, Board))
                 {
                     Console.WriteLine("Please choose an appropiate option");
                     continue;
@@ -109,7 +109,7 @@ namespace TicTacToe{
             return CheckInverseDiagonal || CheckDiagonal;
 
         }
-        public static (bool UserStatus, string User) CheckIfUserWin()
+        public static (bool UserStatus, string User) CheckIfUserWin(string[,] Board)
         {
             for (int i = 0; Board.GetLength(0) > i; i++) {
                 if (Linear()||Diagonal())
@@ -125,7 +125,7 @@ namespace TicTacToe{
             return (HasUserWon, User);
         }
     private static int ArbitaryValue;
-    public static bool CheckIfDraw()
+    public static bool CheckIfDraw(string[,] Board)
     {
         ArbitaryValue = 1;
         for(int i = 0; i < Board.GetLength(0); i++)
@@ -155,6 +155,7 @@ namespace TicTacToe{
         public static bool IsComputerUser, FirstComputerMove, ComputerMove;
         public static int UserValue;
         private static string[,] ComputerBoard;
+        public static string ComputerPlayer;
         public ComputerUser(int UserVal)
         {
             IsComputerUser = Logic.IsUserTypeComputer;
@@ -166,11 +167,13 @@ namespace TicTacToe{
             if (UserValue == 0)
             {
                 FirstComputerMove = false;
+                ComputerPlayer = "O";
                 return false;
             }
             else
             {
                 FirstComputerMove = true;
+                ComputerPlayer = "X";
                 return true;
             }
         }
@@ -193,7 +196,6 @@ namespace TicTacToe{
                 }
             }
             else { 
-                Console.WriteLine("what");
                  if(k%2==0)
                 {
                     // ComputerMove= false;
@@ -208,13 +210,62 @@ namespace TicTacToe{
                 }
             }
     }
-        public static void Minimizing(int x, int y)
+        public static int Minimizing(int x, int y)
         {
-             int Score, BestScore;
+             Random obj = new Random();
+             int Score, BestScore = 10000;
+            if (!Logic.IsOccupied(x, y, ComputerBoard))
+            {
+                if (!Logic.CheckIfUserWin(ComputerBoard).UserStatus)
+                {
+                    return -1;
+                }
+                else if (Logic.CheckIfUserWin(ComputerBoard).UserStatus)
+                {
+                    return 1;
+                }
+                else if(Logic.CheckIfDraw(ComputerBoard)){
+                    return 0;
+                }
+                else
+                {
+                    return Minimizing(obj.Next(1,10), obj.Next(0,9));
+                }
+            }
+            else
+            {
+                return Minimizing(obj.Next(1, 10), obj.Next(0, 9));
+            }
+
         } 
-        public static void Maximizing(int x, int y)
+        public static int Maximizing(int x, int y)
         {
-             int Score;
+            Random obj = new Random();
+            int Score, BestScore = -10000;
+            if (!Logic.IsOccupied(x, y, ComputerBoard))
+            {
+                if (!Logic.CheckIfUserWin(ComputerBoard).UserStatus)
+                {
+                    return -1;
+                }
+                else if (Logic.CheckIfUserWin(ComputerBoard).UserStatus)
+                {
+                    return 1;
+                }
+                else if (Logic.CheckIfDraw(ComputerBoard))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Maximizing(obj.Next(1, 10), obj.Next(0, 9));
+                }
+            }
+            else
+            {
+                return Maximizing(obj.Next(1, 10), obj.Next(0, 9));
+            }
+
         }
         public static void Minimax()
         {
@@ -224,10 +275,12 @@ namespace TicTacToe{
                 {
                     if (PlayerMoveDetermination())
                     {
-                        Maximizing(x, y);
-                    }
-                    else{
-                        Minimizing(x, y);
+                        int a = Maximizing(x, y);
+                        int b = Minimizing(x, y);
+                    if(a == 1 && b == -1)
+                        {
+                            Logic.Board[x, y] = ComputerPlayer;
+                        }
                     }
                 }
             }
@@ -303,17 +356,18 @@ namespace TicTacToe{
                     else
                     {
                         ComputerUser.Minimax();
+                        obj2.PrintBoard();
                     }
                 }
                 else{
                 obj.UserInput(i);
                 obj2.PrintBoard();
                 }
-                if (Logic.CheckIfUserWin().UserStatus)
+                if (Logic.CheckIfUserWin(Logic.Board).UserStatus)
                 {
-                    Console.WriteLine($"{Logic.CheckIfUserWin().User} has won");
+                    Console.WriteLine($"{Logic.CheckIfUserWin(Logic.Board).User} has won");
                     break;
-                }else if (Logic.CheckIfDraw())
+                }else if (Logic.CheckIfDraw(Logic.Board))
                 {
                     Console.WriteLine("It's a Draw");
                     break;
